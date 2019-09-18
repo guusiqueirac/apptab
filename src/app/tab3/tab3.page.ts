@@ -1,3 +1,5 @@
+import { Router } from '@angular/router';
+import { UsuariosService } from './../usuarios/shared/usuarios.service';
 import { Component } from '@angular/core';
 
 @Component({
@@ -7,6 +9,13 @@ import { Component } from '@angular/core';
 })
 export class Tab3Page {
 
-  constructor() {}
+  constructor(private usuariosService: UsuariosService,
+              private router: Router) {}
 
+  sair(){
+    this.usuariosService.logout()
+      .then(() => {
+        this.router.navigate(['/login']);
+      })
+  }
 }
