@@ -6,7 +6,8 @@
 
 <ion-content padding>
   <ion-list>
-    <!-- <ion-item>
+    <!--Para trazer a listagem das categorias em forma de filtro-->
+    <ion-item>
 
       <ion-label>Categoria</ion-label>
       <ion-select (ionChange)="buscarProdutos()" [(ngModel)]="categoriaSelecionada">
@@ -15,8 +16,8 @@
         </ion-select-option>
       </ion-select>
 
-    </ion-item> -->
-
+    </ion-item>
+    <!--Para trazer a listagem dos podrutos-->
     <ion-item *ngFor="let produto of produtos | async" (click)="adicionarProduto(produto.key)">
       <ion-avatar slot="start" *ngIf="produto.img">
         <img [src]="produto.img" />

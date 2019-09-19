@@ -9,13 +9,19 @@ import { Router } from '@angular/router';
   styleUrls: ['./lista-produtos.page.scss'],
 })
 export class ListaProdutosPage implements OnInit {
+/* Variáveis para receber a lista do banco de dados*/
 produtos: Observable<any[]>;
+categorias: Observable<any[]>;
 
   constructor(private router: Router,
               private produtosService: ProdutosService) { }
 
+  /*Comando que chama os metodos no service para listar os produtos e categorias*/
   ngOnInit() {
     this.produtos = this.produtosService.getAll();
+    this.categorias = this.produtosService.getcategoriasAll();
   }
+
+
 
 }
