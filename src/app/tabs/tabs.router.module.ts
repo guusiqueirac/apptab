@@ -55,6 +55,20 @@ const routes: Routes = [
     path: '',
     redirectTo: '/tabs/produtos',
     pathMatch: 'full'
+  },
+  {
+    path: 'pedido',
+    children: [
+      {
+        path: 'carrinho/novo-item/:key',
+        loadChildren: '../pedido/form-item-pedido/form-item-pedido.module#FormItemPedidoPageModule'
+      }
+    ]
+  },
+  {
+    path: '',
+    redirectTo: '/tabs/produtos',
+    pathMatch: 'full'
   }
 ];
 

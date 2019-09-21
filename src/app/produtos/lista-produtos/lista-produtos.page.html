@@ -15,8 +15,8 @@
         <ion-select-option *ngFor="let categoria of categorias | async" [value]="categoria.key">{{ categoria.nome }}
         </ion-select-option>
       </ion-select>
-
     </ion-item>
+
     <!--Para trazer a listagem dos podrutos-->
     <ion-item *ngFor="let produto of produtos | async" (click)="adicionarProduto(produto.key)">
       <ion-avatar slot="start" *ngIf="produto.img">
@@ -26,7 +26,8 @@
         <h1>{{ produto.nome }}</h1>
         <h2>{{ produto.categoriaNome }}</h2>
         <pre text-wrap>{{ produto.descricao }}</pre>
-        <!-- <app-valor [valor]="produto.preco"></!--> -->
+        <!-- <span>{{produto.preco | currency: 'BRL'}}</span> -->
+        <app-valor [valor]="produto.preco"></app-valor>
       </ion-label>
     </ion-item>
   </ion-list>
