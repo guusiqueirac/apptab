@@ -19,7 +19,7 @@ total: number = 0;
               private route: ActivatedRoute,
               private router: Router,
               private produtosService: ProdutosService,
-              private carrioServicenh: CarrinhoService,
+              private carrinhoService: CarrinhoService,
               private toast: ToastService) { }
 
   /*Trazer os detalhes do pedido para a page só de um produto*/
@@ -38,6 +38,8 @@ total: number = 0;
           produtoPreco: produto.preco,
           quantidade: 1
         })
+
+        /*Mostra o total calculado*/
         this.executaCalcularTotal();
       })
     }
@@ -56,17 +58,20 @@ total: number = 0;
     })
   }
 
-  executaCalcularTotal(){
+  /*Busca o metodo de calculo e executa*/
+  executaCalcularTotal() {
     this.atualizaTotal(this.form.value.quantidade);
   }
 
-  adicionarQuantidade(){
+  /*Adiciona a quantidade através do botão de " + ", pega a quantidade joga em uma váriavel e manda para o atualizaTotal */
+  adicionarQuantidade() {
     let qtd = this.form.value.quantidade;
     qtd++;
     this.atualizaTotal(qtd);
   }
 
-  removerQuantidade(){
+  /*Diminui a quantidade através do botão de retirar " - ", pega a quantidade joga em uma váriavel e manda para o atualizaTotal */
+  removerQuantidade() {
     let qtd = this.form.value.quantidade;
     qtd--;
     if(qtd <= 0)
@@ -75,12 +80,22 @@ total: number = 0;
     this.atualizaTotal(qtd);
   }
 
-  atualizaTotal(quantidade: number){
+  /*Receber o preço e a quantidade e efetuar a conta de multiplicação para calcular o total*/
+  atualizaTotal(quantidade: number) {
     this.total = this.produto.preco * quantidade;
     this.form.patchValue({ quantidade: quantidade, total: this.total});
   }
 
-  onSubimit(){
-
+  /*Se o valores do formulario estiverem todos preenchidos (validos), ira buscar o metodo inserir no carrinhoService*/
+  /*Se deu certo ele irá mostrar a mensagem de que deu certo e volta pra page produtos*/
+  onSubmit(){
+    if(this.form.valid){
+      this.carrinhoService.insert(this.form.value)
+      .then( () => {
+        this.toast.show('Produto adicionado ao carrinho com sucesso !');
+        this.router.navigate(['/tabs/produtos']);
+      })
+    }
   }
+
 }
