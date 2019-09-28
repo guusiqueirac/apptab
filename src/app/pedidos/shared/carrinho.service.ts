@@ -24,13 +24,53 @@ export class CarrinhoService {
   }
 
   /*Fazer uma consulta dentro do carrinho para saber se tem algum produto lá*/
-  carrinhoPossuiItens(){
+  carrinhoPossuiItens() {
     return this.getCarrinhoProdutosRef().snapshotChanges().pipe(
       map(changes => {
-        return changes.length > 0
+        return changes.length > 0;
+      })
+    );
+  }
+
+  /*Recebe o preço e a quantidade e retorna o calculo de multiplicação do total */
+  calcularTotal(preco: number, quantidade: number) {
+    return preco * quantidade;
+  }
+
+  /*Acha o produto que está no carrinho pela key e recebe os dados para ser alterado*/
+  update(key: string, quantidade: number, total: number) {
+  /*update é um metodo do AngularFireList que recebe a quantidade de item e o total como dados e retorna se deu certo ou não*/
+    return this.getCarrinhoProdutosRef().update(key, {quantidade: quantidade, total: total})
+  }
+
+  /*Remove um produto do carrinho através de sua key*/
+  remove(key: string) {
+    return this.getCarrinhoProdutosRef().remove(key);
+  }
+
+  /* Traz tudo que está no carrinho */
+  getAll() {
+    return this.getCarrinhoProdutosRef().snapshotChanges().pipe(
+      map( changes => {
+        return changes.map( m => ({key: m.payload.key, ...m.payload.val() }) )
+      })
+    )
+  }
+  /* */
+  getTotalPedido() {
+    return this.getCarrinhoProdutosRef().snapshotChanges().pipe(
+      map(changes => {
+        return changes
+          .map( (m: any) => (m.payload.val().total))
+          .reduce( (prev: number, current: number) => {
+            return prev + current;
+          })
       })
     )
   }
 
+  clear() {
+
+  }
 
 }
