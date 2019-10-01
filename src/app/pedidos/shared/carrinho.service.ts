@@ -52,9 +52,9 @@ export class CarrinhoService {
   getAll() {
     return this.getCarrinhoProdutosRef().snapshotChanges().pipe(
       map( changes => {
-        return changes.map( m => ({key: m.payload.key, ...m.payload.val() }) )
+        return changes.map( m => ({key: m.payload.key, ...m.payload.val() }) );
       })
-    )
+    );
   }
   /* */
   getTotalPedido() {
