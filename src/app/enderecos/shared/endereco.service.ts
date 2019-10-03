@@ -24,7 +24,7 @@ export class EnderecoService {
     return this.db.list(path);
   }
 
-  /*Mapea cada endereço*/
+  /*Mapea cada endereço e traz todos endereços*/
   getAll() {
     return this.getEnderecosRef().snapshotChanges().pipe(
       map (change => {

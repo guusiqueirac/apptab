@@ -13,6 +13,11 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { firebaseconfig } from '../firebase-config';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+/*import { library } from '@fortawesome/fontawesome-svg-core';
+import { faCoffe } from '@fortawesome/free-solid-svg-icons';
+
+library.add(faCoffe);*/
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,7 +28,8 @@ import { firebaseconfig } from '../firebase-config';
     AppRoutingModule,
     AngularFireModule.initializeApp(firebaseconfig),
     AngularFireAuthModule,
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    FontAwesomeModule
    ],
   providers: [
     StatusBar,
